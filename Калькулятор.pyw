@@ -1,6 +1,7 @@
 from tkinter import *
 from tkinter import ttk
-import math
+from math import sqrt
+from numpy import float32
 
 root = Tk()
 root.title('КАЛЬКУЛЯТОР')
@@ -42,11 +43,15 @@ def calculation(key):
         calculator.delete(0, END)
     elif key == '=':
         try:
-            result = eval(calculator.get())
-            calculator.insert(END, f'={str(result)}')
+            result1 = eval(calculator.get())
+            result2 = float32(eval(calculator.get()))  # numpy
+            if result1 == result2:
+                calculator.insert(END, f'={result1}')
+            else:
+                calculator.insert(END, f'={result2}')
         except:
             calculator.delete(0, END)
-            calculator.insert(0, 'ОШИБКА')
+            calculator.insert(0, 'error')
     elif key == 'C':
         calculator.delete(0, END)
     elif key == 'x²':
@@ -54,7 +59,7 @@ def calculation(key):
             result = float(calculator.get())**2
             num = calculator.get()
             calculator.delete(0, END)
-            calculator.insert(0, f'{str(num)}² = {str(result)}')
+            calculator.insert(0, f'{num}²={result}')
         except:
             calculator.delete(0, END)
     elif key == '1/x':
@@ -62,7 +67,7 @@ def calculation(key):
             result = 1/float(calculator.get())
             num = calculator.get()
             calculator.delete(0, END)
-            calculator.insert(0, f'1 / {str(num)} = {str(result)}')
+            calculator.insert(0, f'1/{num}={result}')
         except:
             calculator.delete(0, END)
     elif key == '%':
@@ -74,10 +79,10 @@ def calculation(key):
             calculator.delete(0, END)
     elif key == '√':
         try:
-            result = math.sqrt(float(calculator.get()))
+            result = sqrt(float(calculator.get()))  # math
             num = calculator.get()
             calculator.delete(0, END)
-            calculator.insert(0, f'√{str(num)} = {str(result)}')
+            calculator.insert(0, f'√{num}={result}')
         except:
             calculator.delete(0, END)
     elif key == '+/-':
