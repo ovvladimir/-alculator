@@ -1,16 +1,14 @@
-from tkinter import *
-from tkinter import ttk
+from tkinter import END, Entry, INSERT, Tk, ttk
 from math import sqrt
-from numpy import float32
 
 root = Tk()
 root.title('КАЛЬКУЛЯТОР')
 style = ttk.Style()
 style.configure('TButton', background='white', foreground='navy',
                 font=("Arial", 12))
-# keycod = [48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 187, 189, 16, 17, 18, 13]
-keycod = [96, 97, 98, 99, 100, 101, 102, 103, 104, 105,
-          106, 107, 109, 110, 111, 8, 16, 17, 18, 13]
+# key_code = [48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 187, 189, 16, 17, 18, 13]
+key_code = [96, 97, 98, 99, 100, 101, 102, 103, 104, 105,
+            106, 107, 109, 110, 111, 8, 16, 17, 18, 13]
 button_list = [
     '%', '√', 'x²', 'C',
     '(', ')', '1/x', '/',
@@ -33,8 +31,8 @@ calculator.grid(row=0, column=0, columnspan=4)
 calculator.focus()
 calculator.configure(font=("Arial", 24), insertontime=0,
                      relief='solid', fg='navy')
-# calculator.configure(insertwidth=1, insertontime=1000,
-#                      fg='white', bg='black', font='bold')
+"""calculator.configure(insertwidth=1, insertontime=1000,
+                     fg='white', bg='black', font='bold')"""
 
 
 def calculation(key):
@@ -43,13 +41,12 @@ def calculation(key):
         calculator.delete(0, END)
     elif key == '=':
         try:
-            result1 = eval(calculator.get())
-            result2 = float32(eval(calculator.get()))  # numpy
-            if result1 == result2:
-                calculator.insert(END, f'={result1}')
+            result = eval(calculator.get())
+            if type(result) is float:  # if result % 1 != 0:
+                calculator.insert(END, f'={"%.3f" % result}')
             else:
-                calculator.insert(END, f'={result2}')
-        except:
+                calculator.insert(END, f'={result}')
+        except (ZeroDivisionError, SyntaxError, IndexError, ValueError, NameError):
             calculator.delete(0, END)
             calculator.insert(0, 'error')
     elif key == 'C':
@@ -60,7 +57,7 @@ def calculation(key):
             num = calculator.get()
             calculator.delete(0, END)
             calculator.insert(0, f'{num}²={result}')
-        except:
+        except (ZeroDivisionError, SyntaxError, IndexError, ValueError, NameError):
             calculator.delete(0, END)
     elif key == '1/x':
         try:
@@ -68,14 +65,14 @@ def calculation(key):
             num = calculator.get()
             calculator.delete(0, END)
             calculator.insert(0, f'1/{num}={result}')
-        except:
+        except (ZeroDivisionError, SyntaxError, IndexError, ValueError, NameError):
             calculator.delete(0, END)
     elif key == '%':
         try:
             result = eval(calculator.get()) / 100
             calculator.delete(0, END)
             calculator.insert(0, f'{str(result)}')
-        except:
+        except (ZeroDivisionError, SyntaxError, IndexError, ValueError, NameError):
             calculator.delete(0, END)
     elif key == '√':
         try:
@@ -83,7 +80,7 @@ def calculation(key):
             num = calculator.get()
             calculator.delete(0, END)
             calculator.insert(0, f'√{num}={result}')
-        except:
+        except (ZeroDivisionError, SyntaxError, IndexError, ValueError, NameError):
             calculator.delete(0, END)
     elif key == '+/-':
         try:
@@ -102,11 +99,11 @@ def calculation(key):
 
 def k(event):
     print(event.keycode)
-    ekey = event.keycode
+    e_key = event.keycode
     n = calculator.index(INSERT)
-    if ekey not in keycod:
+    if e_key not in key_code:
         calculator.delete(n-1)
-    elif ekey == 13:
+    elif e_key == 13:
         calculation(key='=')
     elif '=' in calculator.get():
         calculator.delete(0, END)
