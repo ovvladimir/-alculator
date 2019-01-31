@@ -4,8 +4,7 @@ from math import sqrt
 root = Tk()
 root.title('КАЛЬКУЛЯТОР')
 style = ttk.Style()
-style.configure('TButton', background='white', foreground='navy',
-                font=("Arial", 12))
+style.configure('TButton', background='white', foreground='navy', font='Arial 12')
 # key_code = [48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 187, 189, 16, 17, 18, 13]
 key_code = [96, 97, 98, 99, 100, 101, 102, 103, 104, 105,
             106, 107, 109, 110, 111, 8, 16, 17, 18, 13]
@@ -15,21 +14,17 @@ button_list = [
     '7', '8', '9', '*',
     '4', '5', '6', '-',
     '1', '2', '3', '+',
-    '+/-', '0', '.', '='
-]
-st = 1
-for i in range(len(button_list)):
-    if i >= st*4:
-        st += 1
+    '+/-', '0', '.', '=']
 
+for i in range(len(button_list)):
     def com(x=button_list[i]): return calculation(x)
-    ttk.Button(root, text=button_list[i], command=com).grid(row=st, column=i % 4,
+    ttk.Button(root, text=button_list[i], command=com).grid(row=i//4+1, column=i % 4,
                                                             ipady=10)
 
 calculator = Entry(root, width=24, state='normal')
 calculator.grid(row=0, column=0, columnspan=4)
 calculator.focus()
-calculator.configure(font=("Arial", 24), insertontime=0,
+calculator.configure(font='Arial 24', insertontime=0,
                      relief='solid', fg='navy')
 """calculator.configure(insertwidth=1, insertontime=1000,
                      fg='white', bg='black', font='bold')"""
