@@ -24,7 +24,7 @@ for i in range(len(button_list)):
 calculator = Entry(root, width=24, state='normal')
 calculator.grid(row=0, column=0, columnspan=4)
 calculator.focus()
-calculator.configure(font='Arial 24', insertontime=0,
+calculator.configure(font='arial 24', insertontime=0,
                      relief='solid', fg='navy')
 """calculator.configure(insertwidth=1, insertontime=1000,
                      fg='white', bg='black', font='bold')"""
