@@ -113,7 +113,7 @@ def sym(e):
         calculator.delete(n-1)
     elif e_key == 'Return':
         calculation('=')
-    elif '=' in calculator.get() or 'error' in calculator.get() and len(e_key) <= 2:
+    elif ('=' in calculator.get() or 'error' in calculator.get()) and len(e_key) <= 2:
         calculator.delete(0, END)
 
 
