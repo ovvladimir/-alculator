@@ -38,7 +38,15 @@ def calculation(key):
         try:
             result = eval(calculator.get())
             if type(result) is float:  # if result % 1 != 0:
-                calculator.insert(END, f'={"%.3f" % result}')
+                r = list(str(result))
+                if r[0] == '0' and r[2] == '0' and r[3] != '0':
+                    calculator.insert(END, f'={"%.3f" % result}')
+                elif r[0] == '0' and r[2] == '0' and r[3] == '0':
+                    calculator.insert(END, f'={"%.5f" % result}')
+                elif 'e' in r:
+                    calculator.insert(END, f'={result}')
+                else:
+                    calculator.insert(END, f'={"%.1f" % result}')
             else:
                 calculator.insert(END, f'={result}')
         except (ZeroDivisionError, SyntaxError, IndexError, ValueError, NameError):
