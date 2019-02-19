@@ -101,14 +101,14 @@ def calculation(key):
 
 
 def k(event):
-    print(event.keycode)
+    # print(event.keycode)
     e_key = event.keycode
     n = calculator.index(INSERT)
-    if e_key not in key_code:
+    if e_key not in key_code and e_key != 37 and e_key != 39:
         calculator.delete(n-1)
     elif e_key == 13:
         calculation(key='=')
-    elif '=' in calculator.get():
+    elif '=' in calculator.get() and e_key != 37 and e_key != 39:
         calculator.delete(0, END)
 
 
