@@ -70,7 +70,7 @@ def calculation(key):
             calculator.delete(0, END)
     elif key == '1/x':
         try:
-            result = 1/float(calculator.get())
+            result = 1 / float(calculator.get())
             num = calculator.get()
             calculator.delete(0, END)
             calculator.insert(0, f'1/{num}={result}')
