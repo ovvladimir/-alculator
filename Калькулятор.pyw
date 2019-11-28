@@ -21,8 +21,9 @@ button_list = [
     '+/-', '0', '.', '=']
 
 for i in range(len(button_list)):
-    def com(k=button_list[i]): return calculation(k)
-    ttk.Button(root, text=button_list[i], command=com).grid(row=i//4+1,
+    def com(k=button_list[i]):
+            return calculation(k)
+    ttk.Button(root, text=button_list[i], command=com).grid(row=i // 4 + 1,
                                                             column=i % 4,
                                                             ipady=10)
 
