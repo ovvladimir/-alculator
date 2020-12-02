@@ -1,4 +1,4 @@
-from tkinter import END, Entry, INSERT, Tk, ttk
+from tkinter import Tk, ttk, Entry, INSERT, END, W, E
 from math import sqrt
 
 root = Tk()
@@ -20,18 +20,16 @@ button_list = [
     '1', '2', '3', '+',
     '+/-', '0', '.', '=']
 
-for i in range(len(button_list)):
-    def com(k=button_list[i]):
-            return calculation(k)
-    ttk.Button(root, text=button_list[i], command=com).grid(row=i // 4 + 1,
-                                                            column=i % 4,
-                                                            ipady=10)
+for i, btn in enumerate(button_list):
+    def com(k=btn):
+        return calculation(k)
+    button = ttk.Button(root, text=btn, command=com)
+    button.grid(row=i // 4 + 1, column=i % 4, ipady=10)
 
-calculator = Entry(root, width=24)
+calculator = Entry(root, font='Arial 28', insertontime=0,
+                   relief='solid', state='normal', fg='navy')
 calculator.focus()
-calculator.configure(font='Arial 24', insertontime=0,
-                     relief='solid', state='normal', fg='navy')
-calculator.grid(row=0, column=0, columnspan=4)
+calculator.grid(row=0, column=0, columnspan=4, sticky=W + E, ipady=4)
 """calculator.configure(insertwidth=1, insertontime=1000,
                      fg='white', bg='black', font='bold')"""
 
@@ -111,11 +109,13 @@ def sym(e):
     # print(e.keycode, e.keysym, len(e_key))
     n = calculator.index(INSERT)
     if e_key not in button_list and len(e_key) <= 2:
-        calculator.delete(n-1)
+        calculator.delete(n - 1)
     elif e_key == 'Return':
         calculation('=')
     elif ('=' in calculator.get() or 'error' in calculator.get()) and len(e_key) <= 2:
         calculator.delete(0, END)
+    elif e_key == 'Escape':
+        root.destroy()
 
 
 root.bind('<Key>', sym)
