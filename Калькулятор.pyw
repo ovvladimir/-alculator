@@ -1,4 +1,4 @@
-from tkinter import Tk, ttk, Entry, INSERT, END, W, E
+from tkinter import Tk, ttk, Entry, INSERT, END
 from math import sqrt
 
 root = Tk()
@@ -24,12 +24,12 @@ for i, txt in enumerate(button_list):
     def com(k=txt):
         return calculation(k)
     button = ttk.Button(root, text=txt, command=com)
-    button.grid(row=i // 4 + 1, column=i % 4, ipady=10)
+    button.grid(row=i // 4 + 1, column=i % 4, ipady=10, sticky='nsew')
 
 calculator = Entry(root, font='Arial 28', insertontime=0,
                    relief='solid', state='normal', fg='navy')
 calculator.focus()
-calculator.grid(row=0, column=0, columnspan=4, sticky=W + E, ipady=4)
+calculator.grid(row=0, column=0, columnspan=4, sticky='we', ipady=4)
 """calculator.configure(insertwidth=1, insertontime=1000,
                         fg='white', bg='black', font='bold')"""
 
